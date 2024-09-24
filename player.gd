@@ -3,17 +3,16 @@ extends Area2D
 signal hit 
 
 @export var speed: float = 400
-var screen_size
-var player_size
+var screen_size: Vector2
 
 
-func _ready():
+func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	hide()
 
 
-func _process(delta):
-	var velocity = Vector2.ZERO # The player's movement vector.
+func _process(delta) -> void:
+	var velocity: Vector2 = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("move_left"):
@@ -41,13 +40,13 @@ func _process(delta):
 		$AnimatedSprite2D.flip_v = velocity.y > 0
 
 
-func _on_body_entered(body):
+func _on_body_entered(body) -> void:
 	hide()
 	hit.emit()
 	$CollisionShape2D.set_deferred("disabled", true)
 
 
-func start(pos):
+func start(pos) -> void:
 	position = pos 
 	show()
 	$CollisionShape2D.disabled = false
